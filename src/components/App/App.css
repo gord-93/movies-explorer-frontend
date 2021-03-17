@@ -1,0 +1,10 @@
+body {
+    background-color: rgba(32, 32, 32, 1);
+    outline: 2px goldenrod solid;
+}
+
+.app {
+    font-family: 'Inter', Arial, sans-serif;
+    color: white;
+}
+

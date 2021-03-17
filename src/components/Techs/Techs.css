@@ -1,0 +1,117 @@
+.techs {
+    background-color: rgba(39, 39, 39, 1);
+}
+
+.techs__subtitle {
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 58px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    margin: 90px auto 0;
+}
+
+@media screen and (max-width: 1279px) {
+    .techs__subtitle {
+        margin-top: 80px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs__subtitle {
+        margin-top: 60px;
+        font-size: 30px;
+        line-height: 36px;
+    }
+}
+
+.techs__element {
+    margin: 0 10px 0 0;
+    width: 90px;
+    height: 60px;
+    background-color: rgba(48, 48, 48, 1);
+    border-radius: 10px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.techs__element:last-child {
+    margin-right: 0;
+}
+
+@media screen and (max-width: 1279px) {
+    .techs__element {
+        font-size: 12px;
+        line-height: 15px;
+        width: 84px;
+        height: 57px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs__element {
+        margin-bottom: 10px;
+    }
+    .techs__element:nth-child(2n) {
+        margin-right: 0;
+    }
+    .techs__element:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.techs__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 100px auto;
+    max-width: 690px;
+}
+
+@media screen and (max-width: 1279px) {
+    .techs__container {
+        max-width: 648px;
+        margin-bottom: 90px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs__container {
+        max-width: 178px;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+}
+
+.techs__about {
+    max-width: 460px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: -0.04em;
+    margin: 26px auto 0;
+}
+
+@media screen and (max-width: 1279px) {
+    .techs__about {
+        margin-top: 22px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .techs__about {
+        margin-top: 24px;
+        font-size: 11px;
+        line-height: 16px;
+        max-width: 292px;
+    }
+}
