@@ -1,0 +1,87 @@
+.movies-card {
+    width: 270px;
+    height: 218px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    border-radius: 10px;
+    box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+}
+
+.movies-card__image {
+    height: 151px;
+    margin: 0;
+}
+
+.movies-card__about-container {
+    height: 67px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.movies-card__text-container {
+    width: 206px;
+    margin: 14px 0 14px 12px;
+}
+
+.movies-card__title {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+}
+
+.movies-card__time {
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    margin: 10px 0 0 0;
+    color: rgba(139, 139, 139, 1);
+}
+
+.movies-card__like-button {
+    width: 16px;
+    height: 16px;
+    margin: 14px 12px 37px 24px;
+    border: 2.5px solid rgba(255, 255, 255, 1);
+    background-color: transparent;
+    border-radius: 50%;
+    outline: none;
+}
+
+.movies-card__like-button:hover {
+    background-color: rgba(43, 224, 128, 1);
+}
+
+.movies-card__like-button_active {
+    background-color: rgba(43, 224, 128, 1);
+}
+
+.movies-card__like-button_place_saved-movies {
+    border: none;
+    background-color: transparent;
+    background-image: url('../../images/remove-car-button.svg');
+}
+
+.movies-card__like-button_place_saved-movies:hover {
+    background-color: rgba(139, 139, 139, 0.6);
+}
+
+@media screen and (max-width: 1279px) {
+    .movies-card {
+        width: 339px;
+    }
+    .movies-card__button {
+        margin: 14px 12px 37px 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .movies-card {
+        width: 300px;
+    }
+}
