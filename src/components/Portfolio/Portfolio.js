@@ -1,4 +1,4 @@
-import avatar from '../../images/avatar.png';
+import avatar from '../../images/avatar.jpg';
 import arrow from '../../images/arrow.svg';
 
 function Portfolio() {
@@ -8,13 +8,13 @@ function Portfolio() {
             <div className="portfolio__container">
                 <img className="portfolio__photo" src={avatar} alt="Моё фото"></img>
                 <div className="portfolio__info">
-                    <p className="portfolio__name">Виталий</p>
-                    <p className="portfolio__job">Фронтенд-разработчик, 30 лет</p>
-                    <p className="portfolio__text">Я родился и живу в Саратове, закончил факультет экономики СГУ. 
-                    У меня есть жена 
-                    и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал 
-                    в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами 
-                    и ушёл с постоянной работы.</p>
+                    <p className="portfolio__name">Иван</p>
+                    <p className="portfolio__job">Фронтенд-разработчик, 28 лет</p>
+                    <p className="portfolio__text">
+                    Я живу в городе Наро-Фоминск, закончил факультет юриспруденции ИВЭСЭП. Женат. Увлекаюсь прохождением
+                    видеоигр, просмотром YouTube, люблю слушать музыку и помечтать. Во всем ценю уважение к мелочам. На данный момент прохожу курс
+                    по веб-разработке от Яндекс.Практикума. Хочу стать отличным специалистом в этом направлении и делать крутые проекты!
+                    </p>
                     <div className="portfolio__links">
                         <a className="portfolio__link" href="https://www.facebook.com/profile.php?id=100005763606962" target="_blank" rel="noreferrer">Facebook</a>
                         <a className="portfolio__link" href="https://github.com/gord-93" target="_blank" rel="noreferrer">Github</a>

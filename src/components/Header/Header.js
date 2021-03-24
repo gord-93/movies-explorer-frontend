@@ -1,14 +1,23 @@
+import { Route, Switch } from 'react-router';
 import logo from '../../images/logo-header.svg'
+import Navigation from '../Navigation/Navigation';
 
-function Header() {
+function Header(props) {
     return (
-        <header className='header'>
-                <img className='header__logo' alt="Логотип" src={logo}></img>
-                <div className="header__buttons">
-                    <button className="header__button">Регистрация</button>
-                    <button className="header__button header__button_place_landing">Войти</button>
-                </div>
-        </header>
+        <Switch>
+            <Route exact path="/">
+                <header className="header">
+                    <img className='header__logo' alt="Логотип" src={logo}></img>
+                    <Navigation />
+                </header>
+            </Route>
+            <Route exact path="/:route">
+                <header className="header header_place_movies">
+                    <img className='header__logo' alt="Логотип" src={logo}></img>
+                    <Navigation setSidebar={props.setSidebar}/>
+                </header>
+            </Route>
+        </Switch>
     );
 }
 

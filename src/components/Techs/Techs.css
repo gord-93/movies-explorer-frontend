@@ -11,20 +11,6 @@
     margin: 90px auto 0;
 }
 
-@media screen and (max-width: 1279px) {
-    .techs__subtitle {
-        margin-top: 80px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .techs__subtitle {
-        margin-top: 60px;
-        font-size: 30px;
-        line-height: 36px;
-    }
-}
-
 .techs__element {
     margin: 0 10px 0 0;
     width: 90px;
@@ -45,48 +31,12 @@
     margin-right: 0;
 }
 
-@media screen and (max-width: 1279px) {
-    .techs__element {
-        font-size: 12px;
-        line-height: 15px;
-        width: 84px;
-        height: 57px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .techs__element {
-        margin-bottom: 10px;
-    }
-    .techs__element:nth-child(2n) {
-        margin-right: 0;
-    }
-    .techs__element:last-child {
-        margin-bottom: 0;
-    }
-}
-
 .techs__container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin: 100px auto;
     max-width: 690px;
-}
-
-@media screen and (max-width: 1279px) {
-    .techs__container {
-        max-width: 648px;
-        margin-bottom: 90px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .techs__container {
-        max-width: 178px;
-        flex-wrap: wrap;
-        justify-content: start;
-    }
 }
 
 .techs__about {
@@ -100,6 +50,19 @@
 }
 
 @media screen and (max-width: 1279px) {
+    .techs__subtitle {
+        margin-top: 80px;
+    }
+    .techs__element {
+        font-size: 12px;
+        line-height: 15px;
+        width: 84px;
+        height: 57px;
+    }
+    .techs__container {
+        max-width: 648px;
+        margin-bottom: 90px;
+    }
     .techs__about {
         margin-top: 22px;
         font-size: 12px;
@@ -108,6 +71,25 @@
 }
 
 @media screen and (max-width: 767px) {
+    .techs__subtitle {
+        margin-top: 60px;
+        font-size: 30px;
+        line-height: 36px;
+    }
+    .techs__element {
+        margin-bottom: 10px;
+    }
+    .techs__element:nth-child(2n) {
+        margin-right: 0;
+    }
+    .techs__element:last-child {
+        margin-bottom: 0;
+    }
+    .techs__container {
+        max-width: 178px;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
     .techs__about {
         margin-top: 24px;
         font-size: 11px;

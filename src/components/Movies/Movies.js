@@ -1,10 +1,14 @@
 import SearchForm from '../SearchForm/SearchForm';
+import Preloader from '../Preloader/Preloader';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies() {
+function Movies(props) {
     return (
-        <div className="movies">
+        <section className="movies">
             <SearchForm />
-        </div>
+            {props.isLoading && <Preloader />}
+            <MoviesCardList />
+        </section>
     )
 }
 

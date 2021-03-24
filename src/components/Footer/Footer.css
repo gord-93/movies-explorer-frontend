@@ -3,8 +3,7 @@
 }
 
 .footer__title {
-    max-width: 1140px;
-    margin: 79px auto 0;
+    margin: 79px 70px 0;
     text-align: center;
     font-weight: normal;
     font-size: 13px;
@@ -14,31 +13,8 @@
     padding-bottom: 20px;
 }
 
-@media screen and (max-width: 1279px) {
-    .footer__title {
-        max-width: 708px;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .footer__title {
-        max-width: 300px;
-        font-size: 12px;
-        line-height: 15px;
-        padding-bottom: 21px;
-    }
-}
-
 .footer__links {
     margin: 0;
-}
-
-@media screen and (max-width: 767px) {
-    .footer__links {
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-    }
 }
 
 .footer__link {
@@ -51,31 +27,12 @@
     margin-right: 0;
 }
 
-@media screen and (max-width: 767px) {
-    .footer__link {
-        text-align: center;
-        margin: 0 auto 12px;
-    }
-    .footer__link:last-child {
-        margin-bottom: 0;
-        margin-right: auto;
-    }
-}
-
 .footer__copyright {
     margin: 0;
 }
 
-@media screen and (max-width: 767px) {
-    .footer__copyright {
-        margin: 30px auto 0;
-        color:rgba(139, 139, 139, 1);
-    }
-}
-
 .footer__container {
-    max-width: 1140px;
-    margin: 20px auto;
+    margin: 20px 70px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -85,15 +42,40 @@
 }
 
 @media screen and (max-width: 1279px) {
+    .footer__title {
+        margin: 79px 30px 0;
+    }
     .footer__container {
-        max-width: 708px;
+        margin: 20px 30px;
     }
 }
 
 @media screen and (max-width: 767px) {
+    .footer__title {
+        font-size: 12px;
+        line-height: 15px;
+        padding-bottom: 21px;
+        margin: 79px 10px 0;
+    }
+    .footer__links {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer__link {
+        text-align: center;
+        margin: 0 auto 12px;
+    }
+    .footer__link:last-child {
+        margin-bottom: 0;
+        margin-right: auto;
+    }
+    .footer__copyright {
+        margin: 30px auto 0;
+        color:rgba(139, 139, 139, 1);
+    }
     .footer__container {
-        margin-top: 30px;
         flex-direction: column-reverse;
-        margin-bottom: 10px;
+        margin: 30px 10px 10px;
     }
 }
