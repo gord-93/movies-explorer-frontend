@@ -11,6 +11,7 @@
 .movies-card__image {
     height: 151px;
     margin: 0;
+    object-fit: contain;
 }
 
 .movies-card__about-container {

@@ -34,6 +34,16 @@
     cursor: pointer;
 }
 
+.movies-card-list__button:disabled {
+    display: none;
+}
+
+.movies-card-list__text-error {
+    color: rgba(139, 139, 139, 1);
+    text-align: center;
+    margin: 70px 70px 0;
+}
+
 @media screen and (max-width: 1279px) {
     .movies-card-list__cards {
         width: 708px;
@@ -42,6 +52,9 @@
     }
     .movies-card-list__button {
         width: 708px;
+    }
+    .movies-card-list__text-error {
+        margin: 70px 30px 0;
     }
 }
 
@@ -55,5 +68,9 @@
     }
     .movies-card-list__button {
         width: 300px;
+    }
+    .movies-card-list__text-error {
+        font-size: 11px;
+        margin: 40px 10px 0;
     }
 }

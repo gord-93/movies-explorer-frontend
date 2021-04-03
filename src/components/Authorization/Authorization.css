@@ -30,6 +30,10 @@
     border-radius: 3px;
 }
 
+.authorization__submit-button:disabled {
+    opacity: 0.5;
+}
+
 .authorization__enter-container {
     display: flex;
     flex-direction: row;

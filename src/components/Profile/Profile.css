@@ -58,6 +58,43 @@
     color: rgba(238, 52, 101, 1);
 }
 
+.profile__input {
+    background: none;
+    color: white;
+    border: none;
+    text-align: end;
+    border: 1px rgba(66, 133, 244, 1) solid;
+    border-radius: 3px;
+}
+
+.profile__submit-button {
+    background-color: rgba(66, 133, 244, 1);
+    border: none;
+    width: 410px;
+    height: 45px;
+    margin: 20px auto 0;
+    color: white;
+    border-radius: 3px;
+}
+
+.profile__submit-button:disabled {
+    opacity: 0.6;
+}
+
+.profile__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile__error {
+    color: rgba(238, 52, 101, 1);
+    margin: 189px auto 0;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+}
+
 @media screen and (max-width: 1279px) {
     .profile__title {
         margin: 236px auto 0;
