@@ -18,7 +18,7 @@ function SearchForm(props) {
                         <img className="search-form__icon" src={searchIcon} alt="Иконка лупы"></img>
                         <input className="search-form__text-input" type="text" placeholder="Фильм" required 
                         onChange={(evt => props.setInputKey(evt.target.value))} value={props.inputKey}></input>
-                        <button type="submit" className="search-form__submit-button"></button>
+                        <button type="submit" className="search-form__submit-button" onClick={props.searchClick}></button>
                     </form>
                     <div className="search-form__checkbox-container">
                         <label className="search__checkbox-switch">

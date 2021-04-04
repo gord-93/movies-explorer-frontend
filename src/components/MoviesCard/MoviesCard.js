@@ -7,10 +7,15 @@ function MoviesCard(props) {
     const handleLikeStatus = () => {
         if (isLike) {
             setLike(false);
+            props.deleteCard(props.card);
         } else {
             setLike(true);
-            props.createCard();
+            props.createCard(props.card);
         }
+    }
+
+    const handleRemoveCard = () => {
+        props.deleteCard(props.card);
     }
 
     const calcTime = () => {
@@ -25,7 +30,7 @@ function MoviesCard(props) {
 
     return (
         <div className="movies-card">
-            <img className="movies-card__image" src={`https://api.nomoreparties.co${props.card.image.url}`} alt={props.card.nameRU}></img>
+            <img className="movies-card__image" src={props.card.image} alt={props.card.nameRU}></img>
             <div className="movies-card__about-container">
                 <div className="movies-card__text-container">
                     <p className="movies-card__title">{props.card.nameRU}</p>
@@ -37,7 +42,7 @@ function MoviesCard(props) {
                         onClick={handleLikeStatus}></button>
                     </Route>
                     <Route exact path="/saved-movies">
-                        <button className="movies-card__like-button movies-card__like-button_place_saved-movies" type="button"></button>
+                        <button className="movies-card__like-button movies-card__like-button_place_saved-movies" type="button" onClick={handleRemoveCard}></button>
                     </Route>
                 </Switch>
             </div>

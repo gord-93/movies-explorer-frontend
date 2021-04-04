@@ -12,7 +12,7 @@ function Profile(props) {
         values['name'] = currentUser.name;
         values['email'] = currentUser.email;
         setIsValid(true);
-    }, [currentUser]);
+    }, [currentUser, setIsValid, values]);
 
     const handleEditProfile = () => {
         setEditProfile(true)

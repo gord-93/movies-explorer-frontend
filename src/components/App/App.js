@@ -52,8 +52,8 @@ function App() {
         } else {
             movieApi.getInitialMovies()
             .then((movies) => {
-                const filterMovies = movies.filter((movie) => {
-                    return movie.country &&
+                const filterMovies = movies.filter((movie) => 
+                    movie.country &&
                     movie.director &&
                     movie.duration &&
                     movie.year &&
@@ -63,7 +63,30 @@ function App() {
                     movie.id &&
                     movie.nameRU &&
                     movie.nameEN
-                });
+                ).map(({
+                    country,
+                    director,
+                    duration,
+                    year,
+                    description,
+                    image,
+                    trailerLink,
+                    id,
+                    nameRU,
+                    nameEN
+                }) => ({
+                    country,
+                    director,
+                    duration,
+                    year,
+                    description,
+                    thumbnail: `https://api.nomoreparties.co${image.formats.thumbnail.url}`,
+                    image: `https://api.nomoreparties.co${image.url}`,
+                    trailer: trailerLink,
+                    movieId: id,
+                    nameRU,
+                    nameEN
+                }))
                 localStorage.setItem('movies', JSON.stringify(filterMovies));
                 setMovies(filterMovies);
             })
@@ -87,6 +110,15 @@ function App() {
         .catch((err) => {
             console.log(err);
         })
+    }
+
+    const handleDeleteCard = (movie) => {
+        mainApi.deleteMovie(movie.movieId)
+        .then(() => {
+            const newSavedCards = saveMovie.filter((currentCard) => currentCard.movieId !== movie.movieId)
+            setSaveMovie(newSavedCards)
+        })
+        .catch((res) => console.log(res))
     }
 
     React.useEffect(() => {
@@ -150,7 +182,7 @@ function App() {
                     <Login handleSubmit={handleLogin}/>
                 </Route>
                 <ProtectedRoute path="/movies" component={Movies} loggedIn={isLoggedIn} loading={loading} cards={movies} createCard={handleCreateCard}/>
-                <ProtectedRoute path="/saved-movies" component={SavedMovies} loggedIn={isLoggedIn}/>
+                <ProtectedRoute path="/saved-movies" component={SavedMovies} loggedIn={isLoggedIn} savedCards={saveMovie} deleteCard={handleDeleteCard}/>
                 <ProtectedRoute path="/profile" component={Profile} loggedIn={isLoggedIn} logout={handleLogout} updateUser={handleUpdateUser}/>
                 <Route exact path="/error">
                     <Error />

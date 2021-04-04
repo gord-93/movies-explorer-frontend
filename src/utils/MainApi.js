@@ -76,23 +76,33 @@ class MainApi {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('jwt')}`
             },
-            body: {
+            body: JSON.stringify({
                 country: movie.country,
                 director: movie.director,
                 duration: movie.duration,
                 year: movie.year,
                 description: movie.description,
-                image: movie.image.url,
-                trailer: movie.trailerLink,
-                movieId: movie.id,
+                image: movie.image,
+                trailer: movie.trailerLink || 'https://www.youtube.com',
+                movieId: movie.movieId,
                 nameRU: movie.nameRU,
                 nameEN: movie.nameEN,
-                thumbnail: movie.image.formats.thumbnail,
-            }
+                thumbnail: movie.thumbnail,
+            })
         })
         .then((res) => this._checkResponse(res))
     }
 
+    deleteMovie(movieId) {
+        return fetch(this._options.baseUrl + `/movies/${movieId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('jwt')}`
+            },
+        })
+        .then((res) => this._checkResponse(res))
+    }
     
     register(name, email, password) {
         return fetch(this._options.baseUrl + '/signup', {

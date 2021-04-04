@@ -2,13 +2,11 @@ import React from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-function SavedMovies() {
-    const [savedCards, setSavedCards] = React.useState([]);
-
+function SavedMovies(props) {
     return (
         <section className="saved-movies">
             <SearchForm />
-            <MoviesCardList cards={savedCards}/>
+            <MoviesCardList filteredMovie={props.savedCards} deleteCard={props.deleteCard}/>
         </section>
     )
 }

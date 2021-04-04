@@ -40,6 +40,9 @@ function MoviesCardList(props) {
             <Route exact path="/saved-movies">
             <section className="movies-card-list">
                     <div className="movies-card-list__cards movies-card-list__cards_place_saved-movies">
+                        {props.filteredMovie.slice(0, sliceNum).map((card) => {
+                            return (<MoviesCard card={card} key={card.id} deleteCard={props.deleteCard}/>)
+                        })}
                     </div>
                 </section>
             </Route>
