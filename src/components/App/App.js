@@ -87,8 +87,8 @@ function App() {
                     nameRU,
                     nameEN
                 }))
-                localStorage.setItem('movies', JSON.stringify(filterMovies));
                 setMovies(filterMovies);
+                localStorage.setItem('movies', JSON.stringify(filterMovies));
             })
             .catch((err) => console.log(err))
         }
@@ -113,9 +113,9 @@ function App() {
     }
 
     const handleDeleteCard = (movie) => {
-        mainApi.deleteMovie(movie.movieId)
+        mainApi.deleteMovie(movie._id)
         .then(() => {
-            const newSavedCards = saveMovie.filter((currentCard) => currentCard.movieId !== movie.movieId)
+            const newSavedCards = saveMovie.filter((currentCard) => currentCard._id !== movie._id)
             setSaveMovie(newSavedCards)
         })
         .catch((res) => console.log(res))
@@ -129,6 +129,15 @@ function App() {
         }
     }, [isLoggedIn])
 
+    React.useEffect(() => {
+        if (isLoggedIn) {
+            mainApi.getLikedMovies()
+            .then((res) => {
+                localStorage.setItem('savedMovies', JSON.stringify(res));
+                setSaveMovie(res);
+            })
+        }
+    }, [isLoggedIn])
     // ------------------------------------------------------------------------------------------------- //
 
     function handleRegister(name, email, password) {
@@ -181,9 +190,25 @@ function App() {
                 <Route exact path="/signin">
                     <Login handleSubmit={handleLogin}/>
                 </Route>
-                <ProtectedRoute path="/movies" component={Movies} loggedIn={isLoggedIn} loading={loading} cards={movies} createCard={handleCreateCard}/>
-                <ProtectedRoute path="/saved-movies" component={SavedMovies} loggedIn={isLoggedIn} savedCards={saveMovie} deleteCard={handleDeleteCard}/>
-                <ProtectedRoute path="/profile" component={Profile} loggedIn={isLoggedIn} logout={handleLogout} updateUser={handleUpdateUser}/>
+                <ProtectedRoute path="/movies" 
+                component={Movies} 
+                loggedIn={isLoggedIn} 
+                loading={loading} 
+                cards={movies} 
+                createCard={handleCreateCard}
+                />
+                <ProtectedRoute path="/saved-movies" 
+                component={SavedMovies} 
+                loggedIn={isLoggedIn} 
+                savedCards={saveMovie} 
+                deleteCard={handleDeleteCard}
+                />
+                <ProtectedRoute path="/profile" 
+                component={Profile} 
+                loggedIn={isLoggedIn} 
+                logout={handleLogout} 
+                updateUser={handleUpdateUser}
+                />
                 <Route exact path="/error">
                     <Error />
                 </Route>

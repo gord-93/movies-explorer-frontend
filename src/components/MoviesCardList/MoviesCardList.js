@@ -29,7 +29,7 @@ function MoviesCardList(props) {
                     :
                     <div className="movies-card-list__cards">
                         {props.filteredMovie.slice(0, sliceNum).map((card) => {
-                            return (<MoviesCard card={card} key={card.id} likeStatus={props.likeStatus} createCard={props.createCard}/>)
+                            return (<MoviesCard card={card} key={card.movieId} likeStatus={props.likeStatus} createCard={props.createCard}/>)
                         })}
                     </div>}
                     <button className="movies-card-list__button " disabled={sliceNum >= props.filteredMovie.length} type="button" onClick={() => {
@@ -41,8 +41,11 @@ function MoviesCardList(props) {
             <section className="movies-card-list">
                     <div className="movies-card-list__cards movies-card-list__cards_place_saved-movies">
                         {props.filteredMovie.slice(0, sliceNum).map((card) => {
-                            return (<MoviesCard card={card} key={card.id} deleteCard={props.deleteCard}/>)
+                            return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard}/>)
                         })}
+                        <button className="movies-card-list__button " disabled={sliceNum >= props.filteredMovie.length} type="button" onClick={() => {
+                        setSliceNum(sliceNum + addCards);
+                        }}>Ещё</button>
                     </div>
                 </section>
             </Route>

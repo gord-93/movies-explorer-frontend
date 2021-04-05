@@ -9,16 +9,25 @@ function SearchForm(props) {
             props.setIsShortMovie(false);
         }
     }
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        props.submitSearchForm();
+    }
+
+    const handleTextValue = (e) => {
+        props.setInputText(e.target.value);
+    }
     
     return (
         <section className="search-form">
             <div className="search-form__container">
                 <div className="search-form__search-container">
-                    <form className="search-form__form">
+                    <form className="search-form__form" onSubmit={handleSearchSubmit}>
                         <img className="search-form__icon" src={searchIcon} alt="Иконка лупы"></img>
                         <input className="search-form__text-input" type="text" placeholder="Фильм" required 
-                        onChange={(evt => props.setInputKey(evt.target.value))} value={props.inputKey}></input>
-                        <button type="submit" className="search-form__submit-button" onClick={props.searchClick}></button>
+                        onChange={handleTextValue} value={props.inputText}></input>
+                        <button type="submit" className="search-form__submit-button"></button>
                     </form>
                     <div className="search-form__checkbox-container">
                         <label className="search__checkbox-switch">

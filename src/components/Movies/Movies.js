@@ -5,13 +5,13 @@ import React from 'react';
 
 function Movies(props) {
     const [isShortMovie, setIsShortMovie] = React.useState(false);
-    const [inputKey, setInputKey] = React.useState('');
+    const [inputText, setInputText] = React.useState('');
     const [notFoundText, setNotFoundText] = React.useState('');
     const [filteredMovie, setFilteredMovie ] = React.useState([]);
 
     React.useEffect(() => {
-        const regex = new RegExp(inputKey, 'gi');
-        if (inputKey === '') {
+        const regex = new RegExp(inputText, 'gi');
+        if (inputText === '') {
             setNotFoundText('Введите название или ключевые слова в строку поиска, чтобы найти фильмы');
             setFilteredMovie([]);
         } else {
@@ -21,11 +21,11 @@ function Movies(props) {
             :
             setFilteredMovie(props.cards.filter((movie) => regex.test(movie.nameRU)))
         }
-    }, [inputKey, props.cards, isShortMovie])
+    }, [inputText, props.cards, isShortMovie])
 
     return (
         <section className="movies">
-            <SearchForm setIsShortMovie={setIsShortMovie} inputKey={inputKey} setInputKey={setInputKey}/>
+            <SearchForm setIsShortMovie={setIsShortMovie} inputText={inputText} setInputText={setInputText}/>
             {props.loading ? <Preloader /> : <MoviesCardList filteredMovie={filteredMovie} likeStatus={props.likeStatus} textError={notFoundText} createCard={props.createCard}/>}
         </section>
     )

@@ -4,12 +4,11 @@ import Authorization from "../Authorization/Authorization";
 import FormElement from "../FormElement/FormElement";
 
 function Login(props) {
-    const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+    const { values, handleChange, errors, isValid } = useFormWithValidation();
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
         props.handleSubmit(values['email'], values['password']);
-        resetForm();
     }
 
     return (
