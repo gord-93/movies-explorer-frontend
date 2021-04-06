@@ -1,9 +1,10 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { Route, Switch } from 'react-router';
+import { useLocation } from 'react-router';
 import React from 'react';
 import { WINDOW_WIDTH } from '../../utils/constants';
 
 function MoviesCardList(props) {
+    const location = useLocation().pathname;
     const [sliceNum, setSliceNum] = React.useState(0);
     const [addCards, setAddCards] = React.useState(0);
 
@@ -31,34 +32,24 @@ function MoviesCardList(props) {
     }
 
     return (
-        <Switch>
-            <Route exact path="/movies">
-                <section className="movies-card-list">
-                    { props.filteredMovie.length === 0 ? <p className="movies-card-list__text-error">{props.textError}</p>
-                    :
-                    <div className="movies-card-list__cards">
-                        {props.filteredMovie.slice(0, sliceNum).map((card) => {
-                            return (<MoviesCard card={card} key={card.movieId} likeStatus={props.likeStatus} createCard={props.createCard} saveMovie={props.saveMovie} 
-                                deleteCard={props.deleteCard}/>)
-                        })}
-                    </div>}
-                    <button className="movies-card-list__button " disabled={sliceNum >= props.filteredMovie.length} type="button" onClick={() => {
-                        setSliceNum(sliceNum + addCards);
-                    }}>Ещё</button>
-                </section>
-            </Route>
-            <Route exact path="/saved-movies">
-            <section className="movies-card-list">
-                    { props.filteredMovie.length === 0 ? <p className="movies-card-list__text-error">{props.textError}</p>
-                    :
-                    <div className="movies-card-list__cards movies-card-list__cards_place_saved-movies">
-                        {props.filteredMovie.map((card) => {
-                            return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard} />)
-                        })}
-                    </div>}
-                </section>
-            </Route>
-        </Switch>
+        <section className="movies-card-list">
+            { props.filteredMovie.length === 0 ? <p className="movies-card-list__text-error">{props.textError}</p>
+            :
+            <div className="movies-card-list__cards">
+                {location === '/movies' ? 
+                props.filteredMovie.slice(0, sliceNum).map((card) => {
+                    return (<MoviesCard card={card} key={card.movieId} likeStatus={props.likeStatus} createCard={props.createCard} saveMovie={props.saveMovie} 
+                    deleteCard={props.deleteCard} liked={props.saveMovie.some((saveMovie) => saveMovie.movieId === card.movieId)}/>)
+                })
+                :
+                props.filteredMovie.map((card) => {
+                    return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard} />)
+                })}
+            </div>}
+            <button className="movies-card-list__button " disabled={sliceNum >= props.filteredMovie.length} type="button" onClick={() => {
+            setSliceNum(sliceNum + addCards);
+            }}>Ещё</button>
+        </section>
     )
 }
 

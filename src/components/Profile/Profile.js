@@ -36,7 +36,7 @@ function Profile(props) {
     return (
         <section className="profile">
             <h3 className="profile__title">Привет, {currentUser.name}</h3>
-            { !editProfile ? 
+            {!editProfile ? 
             <>
             <div className="profile__user-container">
                 <p className="profile__user-text">Имя</p>
