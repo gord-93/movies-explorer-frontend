@@ -14,7 +14,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Sidebar from '../Sidebar/Sidebar';
-import { MESSAGE, SHORT_MOVIE_DURATION } from '../../utils/constants';
+import { MESSAGE, SHORT_DURATION } from '../../utils/constants';
 
 function App() {
     const history = useHistory();
@@ -25,11 +25,13 @@ function App() {
     const [movies, setMovies] = React.useState([]);
     const [saveMovie, setSaveMovie] = React.useState([]);
     const location = useLocation().pathname;
-    const [isShortMovie, setIsShortMovie] = React.useState(false);
+    
     const [isShortSavedMovies, setIsShortSavedMovies] = React.useState(false);
     const [inputTextSavedMovies, setInputTextSavedMovies] = React.useState('');
-    const [inputText, setInputText] = React.useState('');
     const [notFoundText, setNotFoundText] = React.useState('');
+    const [errorText, setErrorText] = React.useState('');
+    const [isError, setError] = React.useState(false);
+
     //-------------------------------------------------------------------------//
 
     React.useEffect(() => {
@@ -108,15 +110,11 @@ function App() {
         const regex = new RegExp(inputText, 'gi');
         return movies.filter((movie) => {
             if (isShortMovie) {
-                return movie.duration <= SHORT_MOVIE_DURATION && regex.test(movie.nameRU);
+                return movie.duration <= SHORT_DURATION && regex.test(movie.nameRU);
             } else {
                 return regex.test(movie.nameRU);
             }
         })
-    }
-
-    const handleSearchFormSubmit = () => {
-        getBeatFilmList(inputText, isShortMovie);
     }
 
     const getSavedMovies = (inputText, isShortMovie) => {
@@ -130,16 +128,16 @@ function App() {
         }
     }
 
-    const handleSearchSavedMovies = () => {
-        getSavedMovies(inputTextSavedMovies, isShortSavedMovies);
-    }
-
     const handleUpdateUser = (email, name) => {
         mainApi.updateUser(email, name)
             .then((user) => {
             setCurrentUser(user);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+                setError(true);
+                setErrorText(err.message);
+            });
     };
 
     const handleCreateCard = (movie) => {
@@ -197,33 +195,37 @@ function App() {
                 if (res) {
                     handleLogin(email, password);
                     history.push('/movies');
+                    setErrorText('');
                 }
             })
             .catch((err) => {
                 console.log(err);
+                setErrorText(err);
+                setError(true);
             });
     }
 
     const handleLogin = (email, password) => {
         mainApi.authorize(email, password)
         .then((data) => {
-            console.log(data)
             if (data.token) {
                 localStorage.setItem('jwt', data.token);
             }
             setMovies([]);
             setIsLoggedIn(true);
             setCurrentUser(data.user);
-            console.log(data.user)
             history.push('/movies');
+            setErrorText('')
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+            console.log(err);
+            setErrorText(err);
+            setError(true);
+        })
     }
 
     const handleLogout = () => {
         setIsLoggedIn(false);
-        setInputTextSavedMovies('');
-        setInputText('');
         localStorage.removeItem('jwt');
         localStorage.removeItem('movies');
         localStorage.removeItem('savedMovies');
@@ -241,35 +243,31 @@ function App() {
                     <Main />
                 </Route>
                 <Route exact path="/signup">
-                    <Register handleSubmit={handleRegister}/>
+                    <Register handleSubmit={handleRegister} errorText={errorText} isError={isError}/>
                 </Route>
                 <Route exact path="/signin">
-                    <Login handleSubmit={handleLogin}/>
+                    <Login handleSubmit={handleLogin} errorText={errorText} isError={isError}/>
                 </Route>
                 <ProtectedRoute path="/movies" 
                 component={Movies} 
                 loggedIn={isLoggedIn} 
                 loading={loading}
                 createCard={handleCreateCard}
-                setIsShortMovie={setIsShortMovie}
-                inputText={inputText}
-                setInputText={setInputText}
                 notFoundText={notFoundText}
                 filteredMovie={movies}
-                submitSearchForm={handleSearchFormSubmit}
-                isShortMovie={isShortMovie}
                 saveMovie={saveMovie}
                 deleteCard={handleDeleteCard}
+                getMovies={getBeatFilmList}
                 />
                 <ProtectedRoute path="/saved-movies" 
                 component={SavedMovies} 
                 loggedIn={isLoggedIn} 
-                savedCards={saveMovie} 
+                saveMovie={saveMovie} 
                 deleteCard={handleDeleteCard}
                 setIsShortMovie={setIsShortSavedMovies}
                 inputText={inputTextSavedMovies}
                 setInputText={setInputTextSavedMovies}
-                submitSearchForm={handleSearchSavedMovies}
+                getSavedMovies={getSavedMovies}
                 isShortMovie={isShortSavedMovies}
                 notFoundText={notFoundText}
                 loading={loading}
@@ -280,7 +278,7 @@ function App() {
                 logout={handleLogout} 
                 updateUser={handleUpdateUser}
                 />
-                <Route exact path="/error">
+                <Route>
                     <Error />
                 </Route>
             </Switch>

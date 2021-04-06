@@ -15,7 +15,7 @@ function Register(props) {
     return (
         <>
             <Authorization titleText="Добро пожаловать!" submitButtonText="Зарегистрироваться" enterQuestionText="Уже зарегистрированы?" enterButtonText="Войти" link="/signin"
-            handleSubmit={handleSubmit} isValid={isValid}>
+            handleSubmit={handleSubmit} isValid={isValid} errorText={props.errorText} isError={props.isError}>
                 <FormElement 
                 title="Имя"
                 name='name'

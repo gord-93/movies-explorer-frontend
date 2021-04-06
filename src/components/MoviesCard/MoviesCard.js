@@ -1,13 +1,14 @@
 import React from "react";
-import { Route, Switch } from "react-router";
+import { useLocation } from 'react-router-dom'
 
 function MoviesCard(props) {
-    const [isLike, setLike] = React.useState(false)
+    const location = useLocation().pathname;
+    const [isLike, setLike] = React.useState(props.liked);
 
     const handleLikeStatus = () => {
         if (isLike) {
-            const cardId = props.saveMovie.find((movie) => movie.movieId === props.card.movieId)._id;
             setLike(false);
+            const cardId = props.saveMovie.find((movie) => movie.movieId === props.card.movieId)._id;
             props.deleteCard(cardId);
         } else {
             setLike(true);
@@ -29,23 +30,25 @@ function MoviesCard(props) {
         }
     }
 
+    const handleOpenTrailer = () => {
+        return window.open(props.card.trailer);
+    }
+
     return (
         <div className="movies-card">
-            <img className="movies-card__image" src={props.card.image} alt={props.card.nameRU}></img>
+            <img className="movies-card__image" src={props.card.image} alt={props.card.nameRU} onClick={handleOpenTrailer}></img>
             <div className="movies-card__about-container">
                 <div className="movies-card__text-container">
                     <p className="movies-card__title">{props.card.nameRU}</p>
                     <p className="movies-card__time">{calcTime()}</p>
                 </div>
-                <Switch>
-                    <Route exact path="/movies">
-                        <button className={`movies-card__like-button ${isLike && `movies-card__like-button_active`}`} type="button"
-                        onClick={handleLikeStatus}></button>
-                    </Route>
-                    <Route exact path="/saved-movies">
-                        <button className="movies-card__like-button movies-card__like-button_place_saved-movies" type="button" onClick={handleRemoveCard}></button>
-                    </Route>
-                </Switch>
+                { location === '/movies' ?
+                    <button className={`movies-card__like-button ${isLike && `movies-card__like-button_active`}`} type="button"
+                    onClick={handleLikeStatus}
+                    ></button>
+                    :
+                    <button className="movies-card__like-button movies-card__like-button_place_saved-movies" type="button" onClick={handleRemoveCard}></button>
+                }
             </div>
         </div>
     )

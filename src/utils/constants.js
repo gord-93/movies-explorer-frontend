@@ -1,4 +1,4 @@
-export const SHORT_MOVIE_DURATION = 40;
+export const SHORT_DURATION = 40;
 export const WINDOW_WIDTH = {
     LARGE: window.innerWidth >= 1280,
     MEDIUM: window.innerWidth >= 768,

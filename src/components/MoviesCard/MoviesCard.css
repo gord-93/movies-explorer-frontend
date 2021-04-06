@@ -54,10 +54,6 @@
     outline: none;
 }
 
-.movies-card__like-button:hover {
-    background-color: rgba(43, 224, 128, 1);
-}
-
 .movies-card__like-button_active {
     background-color: rgba(43, 224, 128, 1);
 }

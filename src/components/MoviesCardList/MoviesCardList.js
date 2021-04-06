@@ -22,6 +22,14 @@ function MoviesCardList(props) {
         }
     }, [])
 
+    window.onresize = () => {
+        if (WINDOW_WIDTH.LARGE) {
+            setAddCards(3)
+        } else {
+            setAddCards(2);
+        }
+    }
+
     return (
         <Switch>
             <Route exact path="/movies">
@@ -30,7 +38,8 @@ function MoviesCardList(props) {
                     :
                     <div className="movies-card-list__cards">
                         {props.filteredMovie.slice(0, sliceNum).map((card) => {
-                            return (<MoviesCard card={card} key={card.movieId} likeStatus={props.likeStatus} createCard={props.createCard} saveMovie={props.saveMovie} deleteCard={props.deleteCard}/>)
+                            return (<MoviesCard card={card} key={card.movieId} likeStatus={props.likeStatus} createCard={props.createCard} saveMovie={props.saveMovie} 
+                                deleteCard={props.deleteCard}/>)
                         })}
                     </div>}
                     <button className="movies-card-list__button " disabled={sliceNum >= props.filteredMovie.length} type="button" onClick={() => {
@@ -43,13 +52,10 @@ function MoviesCardList(props) {
                     { props.filteredMovie.length === 0 ? <p className="movies-card-list__text-error">{props.textError}</p>
                     :
                     <div className="movies-card-list__cards movies-card-list__cards_place_saved-movies">
-                        {props.filteredMovie.slice(0, sliceNum).map((card) => {
-                            return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard}/>)
+                        {props.filteredMovie.map((card) => {
+                            return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard} />)
                         })}
                     </div>}
-                        <button className="movies-card-list__button " disabled={sliceNum >= props.filteredMovie.length} type="button" onClick={() => {
-                        setSliceNum(sliceNum + addCards);
-                        }}>Ещё</button>
                 </section>
             </Route>
         </Switch>

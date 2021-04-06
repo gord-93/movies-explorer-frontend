@@ -2,18 +2,25 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import React from 'react';
-import { SHORT_MOVIE_DURATION } from '../../utils/constants';
+import { SHORT_DURATION } from '../../utils/constants';
 
 function Movies(props) {
+    const [isShortMovie, setIsShortMovie] = React.useState(false);
+    const [inputText, setInputText] = React.useState('');
+
+    const handleSearchFormSubmit = () => {
+        props.getMovies(inputText, isShortMovie);
+    }
+
     return (
         <section className="movies">
-            <SearchForm setIsShortMovie={props.setIsShortMovie} inputText={props.inputText} setInputText={props.setInputText} submitSearchForm={props.submitSearchForm}/>
+            <SearchForm setIsShortMovie={setIsShortMovie} inputText={props.inputText} setInputText={setInputText} submitSearchForm={handleSearchFormSubmit}/>
             {props.loading ? 
             <Preloader /> 
             :
             <MoviesCardList filteredMovie={
-                props.isShortMovie ? 
-                props.filteredMovie.filter((movie) => movie.duration <= SHORT_MOVIE_DURATION)
+                isShortMovie ? 
+                props.filteredMovie.filter((movie) => movie.duration <= SHORT_DURATION)
                 :
                 props.filteredMovie
             } 

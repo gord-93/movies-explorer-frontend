@@ -14,7 +14,7 @@ function Login(props) {
     return (
         <>
             <Authorization titleText="Рады видеть!" submitButtonText="Войти" enterQuestionText="Ещё не зарегистрированы?" enterButtonText="Регистрация" placeName="login" link="/signup"
-            handleSubmit={handleSubmit} isValid={isValid}>
+            handleSubmit={handleSubmit} isValid={isValid} errorText={props.errorText} isError={props.isError}>
                 <FormElement 
                 title="E-mail"
                 name='email'

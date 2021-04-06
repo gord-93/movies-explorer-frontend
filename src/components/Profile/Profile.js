@@ -12,7 +12,15 @@ function Profile(props) {
         values['name'] = currentUser.name;
         values['email'] = currentUser.email;
         setIsValid(true);
-    }, [currentUser, setIsValid, values]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser, setIsValid]);
+
+    React.useEffect(() => {
+        if (values['email'] === currentUser.email && values['name'] === currentUser.name) {
+        setIsValid(false);
+        }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [values])
 
     const handleEditProfile = () => {
         setEditProfile(true)
