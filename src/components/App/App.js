@@ -14,6 +14,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Sidebar from '../Sidebar/Sidebar';
+import { MESSAGE, SHORT_MOVIE_DURATION } from '../../utils/constants';
 
 function App() {
     const history = useHistory();
@@ -24,7 +25,11 @@ function App() {
     const [movies, setMovies] = React.useState([]);
     const [saveMovie, setSaveMovie] = React.useState([]);
     const location = useLocation().pathname;
-
+    const [isShortMovie, setIsShortMovie] = React.useState(false);
+    const [isShortSavedMovies, setIsShortSavedMovies] = React.useState(false);
+    const [inputTextSavedMovies, setInputTextSavedMovies] = React.useState('');
+    const [inputText, setInputText] = React.useState('');
+    const [notFoundText, setNotFoundText] = React.useState('');
     //-------------------------------------------------------------------------//
 
     React.useEffect(() => {
@@ -45,14 +50,16 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const getBeatFilmList = () => {
-        const localMovies = localStorage.getItem('movies');
-        if (localMovies) {
-            setMovies(JSON.parse(localMovies));
-        } else {
-            movieApi.getInitialMovies()
-            .then((movies) => {
-                const filterMovies = movies.filter((movie) => 
+    const getBeatFilmList = (inputText, isShortMovie) => {
+        if (inputText === '') {
+            setNotFoundText(MESSAGE.ENTER_TEXT);
+            setMovies([]);
+            localStorage.setItem('movies', JSON.stringify([]));
+            return;
+        }
+        setLoading(true);
+        movieApi.getInitialMovies()
+        .then((movies) => movies.filter((movie) => 
                     movie.country &&
                     movie.director &&
                     movie.duration &&
@@ -86,12 +93,45 @@ function App() {
                     movieId: id,
                     nameRU,
                     nameEN
-                }))
-                setMovies(filterMovies);
-                localStorage.setItem('movies', JSON.stringify(filterMovies));
+                })))
+            .then((movies) => {
+                const filteredMovies = filterMovies(movies, inputText, isShortMovie);
+                setNotFoundText(MESSAGE.NOT_FOUND);
+                setMovies(filteredMovies);
+                localStorage.setItem('movies', JSON.stringify(filteredMovies));
             })
-            .catch((err) => console.log(err))
+            .catch(() => setNotFoundText(MESSAGE.ERROR))
+            .finally(() => setLoading(false))
+    }
+
+    const filterMovies = (movies, inputText, isShortMovie) => {
+        const regex = new RegExp(inputText, 'gi');
+        return movies.filter((movie) => {
+            if (isShortMovie) {
+                return movie.duration <= SHORT_MOVIE_DURATION && regex.test(movie.nameRU);
+            } else {
+                return regex.test(movie.nameRU);
+            }
+        })
+    }
+
+    const handleSearchFormSubmit = () => {
+        getBeatFilmList(inputText, isShortMovie);
+    }
+
+    const getSavedMovies = (inputText, isShortMovie) => {
+        const movies = JSON.parse(localStorage.getItem('savedMovies'));
+        if (inputText === '') {
+            setSaveMovie(movies);
+        } else {
+            const filteredMovies = filterMovies(movies, inputText, isShortMovie);
+            setNotFoundText(MESSAGE.NOT_FOUND);
+            setSaveMovie(filteredMovies);
         }
+    }
+
+    const handleSearchSavedMovies = () => {
+        getSavedMovies(inputTextSavedMovies, isShortSavedMovies);
     }
 
     const handleUpdateUser = (email, name) => {
@@ -105,39 +145,50 @@ function App() {
     const handleCreateCard = (movie) => {
         mainApi.createMovie(movie)
         .then((newMovies) => {
-            setSaveMovie([newMovies, ...saveMovie])
+            setSaveMovie([...saveMovie, newMovies])
+            localStorage.setItem('savedMovies', JSON.stringify([...saveMovie, newMovies]))
         })
         .catch((err) => {
             console.log(err);
         })
     }
 
-    const handleDeleteCard = (movie) => {
-        mainApi.deleteMovie(movie._id)
+    const handleDeleteCard = (id) => {
+        mainApi.deleteMovie(id)
         .then(() => {
-            const newSavedCards = saveMovie.filter((currentCard) => currentCard._id !== movie._id)
+            const newSavedCards = saveMovie.filter((currentCard) => currentCard._id !== id)
             setSaveMovie(newSavedCards)
         })
         .catch((res) => console.log(res))
     }
 
     React.useEffect(() => {
+        setLoading(true);
         if (isLoggedIn) {
-            setLoading(true);
-            getBeatFilmList();
-            setLoading(false);
+            mainApi.getLikedMovies()
+            .then((movie) => {
+                localStorage.setItem('savedMovies', JSON.stringify(movie));
+                setSaveMovie(movie);
+                setLoading(false);
+            })
+        }
+        if (location === '/movies') {
+            setNotFoundText(MESSAGE.ENTER_TEXT);
+        } else 
+        if (location === '/saved-movies') {
+            setNotFoundText('');
+        }
+    }, [isLoggedIn, location])
+
+    React.useEffect(() => {
+        const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+        if (isLoggedIn) {
+            if (localStorageMovies) {
+                setMovies(localStorageMovies);
+            }
         }
     }, [isLoggedIn])
 
-    React.useEffect(() => {
-        if (isLoggedIn) {
-            mainApi.getLikedMovies()
-            .then((res) => {
-                localStorage.setItem('savedMovies', JSON.stringify(res));
-                setSaveMovie(res);
-            })
-        }
-    }, [isLoggedIn])
     // ------------------------------------------------------------------------------------------------- //
 
     function handleRegister(name, email, password) {
@@ -160,6 +211,7 @@ function App() {
             if (data.token) {
                 localStorage.setItem('jwt', data.token);
             }
+            setMovies([]);
             setIsLoggedIn(true);
             setCurrentUser(data.user);
             console.log(data.user)
@@ -170,7 +222,11 @@ function App() {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
+        setInputTextSavedMovies('');
+        setInputText('');
         localStorage.removeItem('jwt');
+        localStorage.removeItem('movies');
+        localStorage.removeItem('savedMovies');
         history.push('/')
     }
 
@@ -193,15 +249,30 @@ function App() {
                 <ProtectedRoute path="/movies" 
                 component={Movies} 
                 loggedIn={isLoggedIn} 
-                loading={loading} 
-                cards={movies} 
+                loading={loading}
                 createCard={handleCreateCard}
+                setIsShortMovie={setIsShortMovie}
+                inputText={inputText}
+                setInputText={setInputText}
+                notFoundText={notFoundText}
+                filteredMovie={movies}
+                submitSearchForm={handleSearchFormSubmit}
+                isShortMovie={isShortMovie}
+                saveMovie={saveMovie}
+                deleteCard={handleDeleteCard}
                 />
                 <ProtectedRoute path="/saved-movies" 
                 component={SavedMovies} 
                 loggedIn={isLoggedIn} 
                 savedCards={saveMovie} 
                 deleteCard={handleDeleteCard}
+                setIsShortMovie={setIsShortSavedMovies}
+                inputText={inputTextSavedMovies}
+                setInputText={setInputTextSavedMovies}
+                submitSearchForm={handleSearchSavedMovies}
+                isShortMovie={isShortSavedMovies}
+                notFoundText={notFoundText}
+                loading={loading}
                 />
                 <ProtectedRoute path="/profile" 
                 component={Profile} 

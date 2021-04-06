@@ -36,28 +36,6 @@ class MainApi {
         .then((res) => this._checkResponse(res))
     }
 
-    changeLikeCardStatus(id, isLiked) {
-        if (isLiked) {
-            return fetch(this._options.baseUrl + `/movies/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('jwt')}`
-                },
-            })
-            .then((res) => this._checkResponse(res))
-        } else {
-            return fetch(this._options.baseUrl + '/cards/' + id + '/likes/', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('jwt')}`
-                },
-            })
-            .then((res) => this._checkResponse(res))
-        }
-    }
-
     getLikedMovies() {
         return fetch(this._options.baseUrl + '/movies', {
             method: 'GET',

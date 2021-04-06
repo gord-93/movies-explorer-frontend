@@ -2,31 +2,22 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 import React from 'react';
+import { SHORT_MOVIE_DURATION } from '../../utils/constants';
 
 function Movies(props) {
-    const [isShortMovie, setIsShortMovie] = React.useState(false);
-    const [inputText, setInputText] = React.useState('');
-    const [notFoundText, setNotFoundText] = React.useState('');
-    const [filteredMovie, setFilteredMovie ] = React.useState([]);
-
-    React.useEffect(() => {
-        const regex = new RegExp(inputText, 'gi');
-        if (inputText === '') {
-            setNotFoundText('Введите название или ключевые слова в строку поиска, чтобы найти фильмы');
-            setFilteredMovie([]);
-        } else {
-            setNotFoundText('Ничего не найдено');
-            isShortMovie ? 
-            setFilteredMovie(props.cards.filter((movie) => regex.test(movie.nameRU) && movie.duration <= 40))
-            :
-            setFilteredMovie(props.cards.filter((movie) => regex.test(movie.nameRU)))
-        }
-    }, [inputText, props.cards, isShortMovie])
-
     return (
         <section className="movies">
-            <SearchForm setIsShortMovie={setIsShortMovie} inputText={inputText} setInputText={setInputText}/>
-            {props.loading ? <Preloader /> : <MoviesCardList filteredMovie={filteredMovie} likeStatus={props.likeStatus} textError={notFoundText} createCard={props.createCard}/>}
+            <SearchForm setIsShortMovie={props.setIsShortMovie} inputText={props.inputText} setInputText={props.setInputText} submitSearchForm={props.submitSearchForm}/>
+            {props.loading ? 
+            <Preloader /> 
+            :
+            <MoviesCardList filteredMovie={
+                props.isShortMovie ? 
+                props.filteredMovie.filter((movie) => movie.duration <= SHORT_MOVIE_DURATION)
+                :
+                props.filteredMovie
+            } 
+            likeStatus={props.likeStatus} textError={props.notFoundText} createCard={props.createCard} saveMovie={props.saveMovie} deleteCard={props.deleteCard}/>}
         </section>
     )
 }

@@ -23,7 +23,7 @@ function SearchForm(props) {
         <section className="search-form">
             <div className="search-form__container">
                 <div className="search-form__search-container">
-                    <form className="search-form__form" onSubmit={handleSearchSubmit}>
+                    <form className="search-form__form" onSubmit={handleSearchSubmit} noValidate>
                         <img className="search-form__icon" src={searchIcon} alt="Иконка лупы"></img>
                         <input className="search-form__text-input" type="text" placeholder="Фильм" required 
                         onChange={handleTextValue} value={props.inputText}></input>

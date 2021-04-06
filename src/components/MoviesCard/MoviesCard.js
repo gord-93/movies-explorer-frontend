@@ -6,8 +6,9 @@ function MoviesCard(props) {
 
     const handleLikeStatus = () => {
         if (isLike) {
+            const cardId = props.saveMovie.find((movie) => movie.movieId === props.card.movieId)._id;
             setLike(false);
-            props.deleteCard(props.card);
+            props.deleteCard(cardId);
         } else {
             setLike(true);
             props.createCard(props.card);
@@ -15,7 +16,7 @@ function MoviesCard(props) {
     }
 
     const handleRemoveCard = () => {
-        props.deleteCard(props.card);
+        props.deleteCard(props.card._id);
     }
 
     const calcTime = () => {
