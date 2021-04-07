@@ -1,4 +1,4 @@
-const baseUrl = 'https://lion.students.nomoreparties.space';
+const baseUrl = 'https://api.lion.students.nomoreparties.space';
 
     async function _checkResponse(res) {
         const response = await res.json();
