@@ -1,5 +1,5 @@
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { useLocation } from 'react-router';
+import { Route, useLocation } from 'react-router';
 import React from 'react';
 import { WINDOW_WIDTH } from '../../utils/constants';
 
@@ -46,9 +46,11 @@ function MoviesCardList(props) {
                     return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard} />)
                 })}
             </div>}
-            <button className="movies-card-list__button " disabled={sliceNum >= props.filteredMovie.length} type="button" onClick={() => {
-            setSliceNum(sliceNum + addCards);
-            }}>Ещё</button>
+            <Route exact path='/movies'>
+                <button className="movies-card-list__button " disabled={sliceNum >= props.filteredMovie.length} type="button" onClick={() => {
+                setSliceNum(sliceNum + addCards);
+                }}>Ещё</button>
+            </Route>
         </section>
     )
 }

@@ -95,6 +95,14 @@
     line-height: 13px;
 }
 
+.profile__error_place_login {
+    margin-top: 146px;
+}
+
+.profile__error_place_register {
+    margin-top: 56px;
+}
+
 @media screen and (max-width: 1279px) {
     .profile__title {
         margin: 236px auto 0;
@@ -128,5 +136,11 @@
     }
     .profile__exit-button {
         margin-top: 16px;
+    }
+    .profile__submit-button {
+        width: 260px;
+    }
+    .profile__error {
+        width: 260px;
     }
 }

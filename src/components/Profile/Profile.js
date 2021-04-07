@@ -20,7 +20,7 @@ function Profile(props) {
         setIsValid(false);
         }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [values])
+    }, [values, currentUser])
 
     const handleEditProfile = () => {
         setEditProfile(true)

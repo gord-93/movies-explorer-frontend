@@ -30,9 +30,10 @@ function Login(props) {
                 title="Пароль"
                 name='password'
                 type='password'
-                minLength='2'
+                minLength='8'
                 maxLength='30'
                 required
+                pattern="[0-9a-zA-Z!@#$%^&*]{8,}"
                 error={errors['password']}
                 onChange={handleChange}
                 />

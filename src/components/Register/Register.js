@@ -15,10 +15,11 @@ function Register(props) {
     return (
         <>
             <Authorization titleText="Добро пожаловать!" submitButtonText="Зарегистрироваться" enterQuestionText="Уже зарегистрированы?" enterButtonText="Войти" link="/signin"
-            handleSubmit={handleSubmit} isValid={isValid} errorText={props.errorText} isError={props.isError}>
+            handleSubmit={handleSubmit} isValid={isValid} errorText={props.errorText} isError={props.isError} placeName={'register'}>
                 <FormElement 
                 title="Имя"
                 name='name'
+                type='text'
                 error={errors['name']}
                 onChange = {handleChange}
                 minLength='2'
@@ -42,8 +43,8 @@ function Register(props) {
                 error={errors['password']}
                 onChange = {handleChange}
                 type="password"
-                minLength='2'
-                maxLength='30'
+                minLength='8'
+                pattern="[0-9a-zA-Z!@#$%^&*]{8,}"
                 required 
                 />
             </Authorization>

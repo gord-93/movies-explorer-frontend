@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { mainApi } from '../../utils/MainApi';
+import * as mainApi from '../../utils/MainApi';
 import { movieApi } from '../../utils/MovieApi';
 import Error from '../Error/Error';
 import Footer from '../Footer/Footer';
@@ -18,19 +18,19 @@ import { MESSAGE, SHORT_DURATION } from '../../utils/constants';
 
 function App() {
     const history = useHistory();
+    const location = useLocation().pathname;
     const [currentUser, setCurrentUser] = React.useState({});
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [isSidebar, setSidebar] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [movies, setMovies] = React.useState([]);
     const [saveMovie, setSaveMovie] = React.useState([]);
-    const location = useLocation().pathname;
-    
     const [isShortSavedMovies, setIsShortSavedMovies] = React.useState(false);
     const [inputTextSavedMovies, setInputTextSavedMovies] = React.useState('');
     const [notFoundText, setNotFoundText] = React.useState('');
     const [errorText, setErrorText] = React.useState('');
     const [isError, setError] = React.useState(false);
+    const [isLoginError, setIsLoginError] = React.useState(false);
 
     //-------------------------------------------------------------------------//
 
@@ -196,11 +196,12 @@ function App() {
                     handleLogin(email, password);
                     history.push('/movies');
                     setErrorText('');
+                    setError(false);
                 }
             })
             .catch((err) => {
                 console.log(err);
-                setErrorText(err);
+                setErrorText(err.message);
                 setError(true);
             });
     }
@@ -216,11 +217,12 @@ function App() {
             setCurrentUser(data.user);
             history.push('/movies');
             setErrorText('')
+            setIsLoginError(false);
         })
         .catch((err) => {
             console.log(err);
-            setErrorText(err);
-            setError(true);
+            setErrorText(err.message);
+            setIsLoginError(true);
         })
     }
 
@@ -246,7 +248,7 @@ function App() {
                     <Register handleSubmit={handleRegister} errorText={errorText} isError={isError}/>
                 </Route>
                 <Route exact path="/signin">
-                    <Login handleSubmit={handleLogin} errorText={errorText} isError={isError}/>
+                    <Login handleSubmit={handleLogin} errorText={errorText} isError={isLoginError}/>
                 </Route>
                 <ProtectedRoute path="/movies" 
                 component={Movies} 

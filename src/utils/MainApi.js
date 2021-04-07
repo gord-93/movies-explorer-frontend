@@ -1,28 +1,26 @@
-class MainApi {
-    constructor(options) {
-        this._options = options;
-    }
+const baseUrl = 'https://lion.students.nomoreparties.space';
 
-    _checkResponse(res) {
+    async function _checkResponse(res) {
+        const response = await res.json();
         if (res.ok) {
-            return res.json();
+            return response;
         }
-        return Promise.reject(`Ошибка: ${res.status}:${res.statusText}`);
+        return Promise.reject(response);
     }
 
-    getUserAttribute() {
-        return fetch(this._options.baseUrl + '/users/me', {
+    export const getUserAttribute = () => {
+        return fetch(baseUrl + '/users/me', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('jwt')}`
             }
         })
-        .then((res) => this._checkResponse(res))
+        .then((res) => _checkResponse(res))
     }
 
-    updateUser(email, name) {
-        return fetch(this._options.baseUrl + '/users/me', {
+    export const updateUser = (email, name) => {
+        return fetch(baseUrl + '/users/me', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,22 +31,22 @@ class MainApi {
                 name
             }),
         })
-        .then((res) => this._checkResponse(res))
+        .then((res) => _checkResponse(res))
     }
 
-    getLikedMovies() {
-        return fetch(this._options.baseUrl + '/movies', {
+    export const getLikedMovies = () => {
+        return fetch(baseUrl + '/movies', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('jwt')}`
             }
         })
-        .then((res) => this._checkResponse(res))
+        .then((res) => _checkResponse(res))
     }
 
-    createMovie(movie) {
-        return fetch(this._options.baseUrl + '/movies', {
+    export const createMovie = (movie) => {
+        return fetch(baseUrl + '/movies', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,22 +66,22 @@ class MainApi {
                 thumbnail: movie.thumbnail,
             })
         })
-        .then((res) => this._checkResponse(res))
+        .then((res) => _checkResponse(res))
     }
 
-    deleteMovie(movieId) {
-        return fetch(this._options.baseUrl + `/movies/${movieId}`, {
+    export const deleteMovie = (movieId) => {
+        return fetch(baseUrl + `/movies/${movieId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('jwt')}`
             },
         })
-        .then((res) => this._checkResponse(res))
+        .then((res) => _checkResponse(res))
     }
     
-    register(name, email, password) {
-        return fetch(this._options.baseUrl + '/signup', {
+    export const register = (name, email, password) => {
+        return fetch(baseUrl + '/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -94,11 +92,11 @@ class MainApi {
                 password
             })
         })
-        .then((res) => this._checkResponse(res))
+        .then((res) => _checkResponse(res))
     }
     
-    authorize(email, password) {
-        return fetch(this._options.baseUrl + '/signin', {
+    export const authorize = (email, password) => {
+        return fetch(baseUrl + '/signin', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -108,10 +106,5 @@ class MainApi {
                 password
             })
         })
-        .then((res) => this._checkResponse(res))
+        .then((res) => _checkResponse(res))
     }
-}
-
-export const mainApi = new MainApi({
-    baseUrl: 'https://lion.students.nomoreparties.space'
-});
