@@ -9,18 +9,18 @@ function Profile(props) {
     const [editProfile, setEditProfile] = React.useState(false);
 
     React.useEffect(() => {
-        values['name'] = currentUser.name;
-        values['email'] = currentUser.email;
-        setIsValid(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentUser, setIsValid]);
-
-    React.useEffect(() => {
         if (values['email'] === currentUser.email && values['name'] === currentUser.name) {
         setIsValid(false);
         }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [values, currentUser])
+
+    React.useEffect(() => {
+        values['name'] = currentUser.name;
+        values['email'] = currentUser.email;
+        setIsValid(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser]);
 
     const handleEditProfile = () => {
         setEditProfile(true)
@@ -47,7 +47,7 @@ function Profile(props) {
                 <p className="profile__user-text">{currentUser.email}</p>
             </div>
             <button className="profile__button" type="button" onClick={handleEditProfile}>Редактировать</button>
-            <NavLink className="profile__button profile__exit-button" to="signin" onClick={props.logout}>Выйти из аккаунта</NavLink>
+            <NavLink className="profile__button profile__exit-button" to="/" onClick={props.logout}>Выйти из аккаунта</NavLink>
             </>
             : 
             <> 
@@ -69,7 +69,7 @@ function Profile(props) {
             </>
             }
         </section>
-    )
+        )
 }
 
 export default Profile;

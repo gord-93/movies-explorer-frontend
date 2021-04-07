@@ -19,7 +19,10 @@ import { MESSAGE, SHORT_DURATION } from '../../utils/constants';
 function App() {
     const history = useHistory();
     const location = useLocation().pathname;
-    const [currentUser, setCurrentUser] = React.useState({});
+    const [currentUser, setCurrentUser] = React.useState({
+        name: '',
+        email: ''
+    });
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [isSidebar, setSidebar] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
@@ -38,9 +41,9 @@ function App() {
         const token = localStorage.getItem('jwt')
         if (token) {
             mainApi.getUserAttribute(token)
-            .then((user) => {
+            .then((res) => {
                 setIsLoggedIn(true);
-                setCurrentUser(user);
+                setCurrentUser(res);
                 if (location === '/') {
                     history.push('/movies');
                 } else {
@@ -194,7 +197,7 @@ function App() {
             .then((res) => {
                 if (res) {
                     handleLogin(email, password);
-                    history.push('/movies');
+                    history.push('/signin');
                     setErrorText('');
                     setError(false);
                 }
@@ -208,13 +211,13 @@ function App() {
 
     const handleLogin = (email, password) => {
         mainApi.authorize(email, password)
-        .then((data) => {
-            if (data.token) {
-                localStorage.setItem('jwt', data.token);
+        .then((res) => {
+            if (res.token) {
+                localStorage.setItem('jwt', res.token);
             }
             setMovies([]);
             setIsLoggedIn(true);
-            setCurrentUser(data.user);
+            setCurrentUser(res.user);
             history.push('/movies');
             setErrorText('')
             setIsLoginError(false);
@@ -231,6 +234,10 @@ function App() {
         localStorage.removeItem('jwt');
         localStorage.removeItem('movies');
         localStorage.removeItem('savedMovies');
+        setCurrentUser({
+            name: '',
+            email: ''
+        });
         history.push('/')
     }
 
@@ -245,10 +252,10 @@ function App() {
                     <Main />
                 </Route>
                 <Route exact path="/signup">
-                    <Register handleSubmit={handleRegister} errorText={errorText} isError={isError}/>
+                    <Register handleSubmit={handleRegister} loggedIn={isLoggedIn} errorText={errorText} isError={isError} />
                 </Route>
                 <Route exact path="/signin">
-                    <Login handleSubmit={handleLogin} errorText={errorText} isError={isLoginError}/>
+                    <Login handleSubmit={handleLogin} loggedIn={isLoggedIn} errorText={errorText} isError={isLoginError} />
                 </Route>
                 <ProtectedRoute path="/movies" 
                 component={Movies} 

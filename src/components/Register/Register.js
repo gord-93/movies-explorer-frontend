@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { useFormWithValidation } from '../../utils/FormValidator';
 import Authorization from "../Authorization/Authorization";
 import FormElement from "../FormElement/FormElement";
@@ -14,6 +15,9 @@ function Register(props) {
 
     return (
         <>
+            {props.loggedIn ?
+            <Redirect to='/movies'/> 
+            :
             <Authorization titleText="Добро пожаловать!" submitButtonText="Зарегистрироваться" enterQuestionText="Уже зарегистрированы?" enterButtonText="Войти" link="/signin"
             handleSubmit={handleSubmit} isValid={isValid} errorText={props.errorText} isError={props.isError} placeName={'register'}>
                 <FormElement 
@@ -44,10 +48,10 @@ function Register(props) {
                 onChange = {handleChange}
                 type="password"
                 minLength='8'
-                pattern="[0-9a-zA-Z!@#$%^&*]{8,}"
                 required 
                 />
             </Authorization>
+            }
         </>
     )
 }
