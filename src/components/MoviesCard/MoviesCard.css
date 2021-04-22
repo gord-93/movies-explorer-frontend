@@ -11,6 +11,7 @@
 .movies-card__image {
     height: 151px;
     margin: 0;
+    object-fit: contain;
 }
 
 .movies-card__about-container {
@@ -51,10 +52,6 @@
     background-color: transparent;
     border-radius: 50%;
     outline: none;
-}
-
-.movies-card__like-button:hover {
-    background-color: rgba(43, 224, 128, 1);
 }
 
 .movies-card__like-button_active {

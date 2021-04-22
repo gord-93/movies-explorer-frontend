@@ -161,22 +161,25 @@
         display: none;
     }
     .search-form__container {
-        width: 300px;
-        margin: 0 auto;
+        width: 95%;
+        margin: 0 10px;
     }
     .search-form__form {
-        width: 300px;
+        width: 100%;
         border: none;
+        justify-content: space-between;
     }
     .search-form__text-input {
-        width: 150px;
+        min-width: 150px;
         padding-right: 30px;
         margin: 0;
     }
     .search-form__search-container {
         margin-top: 80px;
         margin-bottom: 109px;
-        flex-wrap: wrap;
+        margin: 80px auto 109px;
+        display: flex;
+        flex-direction: column;
     }
     .search-form__checkbox-container {
         margin: 45px 86px 0;

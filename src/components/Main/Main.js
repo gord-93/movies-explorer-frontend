@@ -4,12 +4,12 @@ import Techs from '../Techs/Techs';
 import Portfolio from '../Portfolio/Portfolio';
 
 function Main() {
-    return (<div className="main">
+    return (<section className="main">
         <Promo />
         <AboutProject />
         <Techs />
         <Portfolio />
-    </div>);
+    </section>);
 };
 
 export default Main;

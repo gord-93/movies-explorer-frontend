@@ -1,5 +1,7 @@
 Movies-Explorer 
 ---------------
+Фронтенд доступен по ссылке: https://lion.students.nomoreparties.space;
+Бэкенд доступен по ссылке: https://api.lion.students.nomoreparties.space/movies;
 
 Репозиторий для фронтенда проекта. 
 Данный проект является дипломным [Яндекс.Практикума](https://praktikum.yandex.ru).
