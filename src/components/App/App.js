@@ -15,6 +15,7 @@ import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Sidebar from '../Sidebar/Sidebar';
 import { MESSAGE, SHORT_DURATION } from '../../utils/constants';
+import CardPopup from '../CardPopup/CardPopup';
 
 function App() {
     const history = useHistory();
@@ -34,6 +35,7 @@ function App() {
     const [errorText, setErrorText] = React.useState('');
     const [isError, setError] = React.useState(false);
     const [isLoginError, setIsLoginError] = React.useState(false);
+    const [selectedCard, setSelectedCard] = React.useState({});
 
     //-------------------------------------------------------------------------//
 
@@ -241,6 +243,33 @@ function App() {
         history.push('/')
     }
 
+    const handleCardClick = (card) => {
+        setSelectedCard(card);
+        document.addEventListener('keydown', handleEscClose);
+    }
+
+    const closeAllPopups = () => {
+        setSelectedCard(false);
+    }
+
+    const handleEscClose = (evt) => {
+        if (evt.key === "Escape") {
+            closeAllPopups();
+        }
+    }
+
+    React.useEffect(() => {
+        const handleOverlayClose = (evt) => {
+            if (evt.target.classList.contains('card-popup')) {
+                closeAllPopups();
+            }
+        }
+        document.addEventListener('click', handleOverlayClose);
+        return () => {
+            document.removeEventListener('click', handleOverlayClose);
+        }
+    }, [])
+
 //-----------------------------------------------------------------------------------------------//
 
     return (
@@ -267,6 +296,7 @@ function App() {
                 saveMovie={saveMovie}
                 deleteCard={handleDeleteCard}
                 getMovies={getBeatFilmList}
+                clickInfoButton={handleCardClick}
                 />
                 <ProtectedRoute path="/saved-movies" 
                 component={SavedMovies} 
@@ -293,6 +323,7 @@ function App() {
             </Switch>
             <Footer />
             <Sidebar setSidebar={setSidebar} isSidebar={isSidebar} />
+            <CardPopup card={selectedCard} closePopupButton={closeAllPopups} />
         </div>
         </CurrentUserContext.Provider>
     )

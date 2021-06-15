@@ -157,7 +157,7 @@
     .portfolio__photo {
         width: 292px;
         height: 352px;
-        margin: 0;
+        margin: 0 auto 0;
     }
     .portfolio__name {
         font-size: 30px;

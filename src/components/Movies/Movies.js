@@ -24,7 +24,8 @@ function Movies(props) {
                 :
                 props.filteredMovie
             } 
-            likeStatus={props.likeStatus} textError={props.notFoundText} createCard={props.createCard} saveMovie={props.saveMovie} deleteCard={props.deleteCard}/>}
+            likeStatus={props.likeStatus} textError={props.notFoundText} createCard={props.createCard} saveMovie={props.saveMovie} 
+            deleteCard={props.deleteCard} clickInfoButton={props.clickInfoButton} />}
         </section>
     )
 }

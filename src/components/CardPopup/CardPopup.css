@@ -1,0 +1,90 @@
+.card-popup {
+    visibility: hidden;
+    background-color: rgba(39, 39, 39, 0.9);
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.card-popup_opened {
+    visibility: visible;
+}
+
+.card-popup__main {
+    width: 700px;
+    background-color: rgba(32, 32, 32, 1);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 50px;
+    position: relative;
+}
+
+.card-popup__image {
+    max-width: 300px;
+    max-height: 266px;
+    border-top-left-radius: 50px;
+    object-fit: contain;
+}
+
+.card-popup__list {
+    margin: 0 10px 0 10px;
+    width: 380px;
+}
+
+.card-popup__element__name {
+    color: rgba(233, 233, 233, 0.8);
+}
+
+.card-popup__description {
+    width: 660px;
+    margin: 20px 20px 30px;
+}
+
+.card-popup__close-button {
+    background: none;
+    border: none;
+    background-image: url(../../images/close-icon.svg);
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    bottom: -44px;
+    left: 45%;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .card-popup__main {
+        width: 300px;
+        max-height: 80%;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        overflow: scroll;
+    }
+    .card-popup__image {
+        border-top-right-radius: 50px;
+    }
+    .card-popup__list {
+        width: 280px;
+        font-size: 15px;
+    }
+    .card-popup__description {
+        width: 280px;
+        margin: 10px 15px 30px;
+        font-size: 15px;
+    }
+    .card-popup__close-button {
+        width: 30px;
+        height: 30px;
+        background-size: contain;
+    }
+}
