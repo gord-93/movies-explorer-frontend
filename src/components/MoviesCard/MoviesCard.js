@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function MoviesCard(props) {
     const location = useLocation().pathname;
@@ -41,9 +41,6 @@ function MoviesCard(props) {
     return (
         <div className="movies-card">
             <img className="movies-card__image" src={props.card.image} alt={props.card.nameRU} onClick={handleOpenTrailer}></img>
-            <Route exact path="/movies">
-                {/* <button className="movies-card__info-button" onClick={handleInfoOpen} /> */}
-            </Route>
             <div className="movies-card__about-container">
                 <div className="movies-card__text-container">
                     <p className="movies-card__title" onClick={handleInfoOpen}>{props.card.nameRU}</p>
