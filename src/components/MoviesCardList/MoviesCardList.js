@@ -39,11 +39,11 @@ function MoviesCardList(props) {
                 {location === '/movies' ? 
                 props.filteredMovie.slice(0, sliceNum).map((card) => {
                     return (<MoviesCard card={card} key={card.movieId} likeStatus={props.likeStatus} createCard={props.createCard} saveMovie={props.saveMovie} 
-                    deleteCard={props.deleteCard} liked={props.saveMovie.some((saveMovie) => saveMovie.movieId === card.movieId)}/>)
+                    deleteCard={props.deleteCard} clickInfoButton={props.clickInfoButton} liked={props.saveMovie.some((saveMovie) => saveMovie.movieId === card.movieId)}/>)
                 })
                 :
                 props.filteredMovie.map((card) => {
-                    return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard} />)
+                    return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard} clickInfoButton={props.clickInfoButton}/>)
                 })}
             </div>}
             <Route exact path='/movies'>

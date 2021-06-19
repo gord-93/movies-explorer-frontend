@@ -23,7 +23,7 @@ function SavedMovies(props) {
                 props.saveMovie.filter((movie) => movie.duration <= SHORT_DURATION)
                 :
                 props.saveMovie
-            } deleteCard={props.deleteCard} textError={props.notFoundText}/>}
+            } deleteCard={props.deleteCard} textError={props.notFoundText} clickInfoButton={props.clickInfoButton} />}
         </section>
     )
 }

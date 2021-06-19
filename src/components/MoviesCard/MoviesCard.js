@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 
 function MoviesCard(props) {
     const location = useLocation().pathname;
@@ -34,12 +34,16 @@ function MoviesCard(props) {
         return window.open(props.card.trailer);
     }
 
+    const handleInfoOpen = () => {
+        props.clickInfoButton(props.card);
+    }
+
     return (
         <div className="movies-card">
             <img className="movies-card__image" src={props.card.image} alt={props.card.nameRU} onClick={handleOpenTrailer}></img>
             <div className="movies-card__about-container">
                 <div className="movies-card__text-container">
-                    <p className="movies-card__title">{props.card.nameRU}</p>
+                    <p className="movies-card__title" onClick={handleInfoOpen}>{props.card.nameRU}</p>
                     <p className="movies-card__time">{calcTime()}</p>
                 </div>
                 { location === '/movies' ?

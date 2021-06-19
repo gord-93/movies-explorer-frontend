@@ -6,12 +6,14 @@
     margin: 0;
     border-radius: 10px;
     box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+    position: relative;
 }
 
 .movies-card__image {
     height: 151px;
     margin: 0;
     object-fit: contain;
+    cursor: pointer;
 }
 
 .movies-card__about-container {
@@ -34,6 +36,7 @@
     white-space: nowrap;
     overflow: hidden;
     margin: 0;
+    cursor: pointer;
 }
 
 .movies-card__time {
@@ -48,17 +51,33 @@
     width: 16px;
     height: 16px;
     margin: 14px 12px 37px 24px;
-    background-image: url(../../images/save-button-not-active.svg);
+    background-image: url(../../images/dislike-button.svg);
     background-repeat: no-repeat;
     background-color: transparent;
     border: none;
     background-position: 50% 25%;
     outline: none;
+    cursor: pointer;
 }
 
 .movies-card__like-button_active {
-    background-image: url(../../images/save-button-active.svg);
+    background-image: url(../../images/like-button.svg);
 }
+
+/* .movies-card__info-button {
+    width: 16px;
+    height: 16px;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(../../images/information-button.svg);
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    outline: none;
+} */
 
 .movies-card__like-button_place_saved-movies {
     border: none;
