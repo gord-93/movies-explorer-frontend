@@ -43,7 +43,7 @@ function MoviesCardList(props) {
                 })
                 :
                 props.filteredMovie.map((card) => {
-                    return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard} />)
+                    return (<MoviesCard card={card} key={card.movieId} deleteCard={props.deleteCard} clickInfoButton={props.clickInfoButton}/>)
                 })}
             </div>}
             <Route exact path='/movies'>

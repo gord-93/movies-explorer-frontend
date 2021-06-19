@@ -310,6 +310,7 @@ function App() {
                 isShortMovie={isShortSavedMovies}
                 notFoundText={notFoundText}
                 loading={loading}
+                clickInfoButton={handleCardClick}
                 />
                 <ProtectedRoute path="/profile" 
                 component={Profile} 
