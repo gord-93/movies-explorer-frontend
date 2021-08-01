@@ -18,6 +18,7 @@
     flex-direction: column;
     margin: 0 0 0 auto;
     background-color: rgba(32, 32, 32, 1);
+    position: relative;
 }
 
 .sidebar__close-button {
@@ -28,7 +29,9 @@
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
-    margin: 22.44px 22.44px 0 auto;
+    position: absolute;
+    top: 22px;
+    right: 22px;
 }
 
 .sidebar__nav-block {
@@ -46,7 +49,7 @@
 }
 
 .sidebar__element:last-of-type {
-    margin-top: 593px;
+    margin-top: 40rem;
     margin-bottom: 0;
 }
 
@@ -66,18 +69,23 @@
     padding-bottom: 4px;
 }
 
+@media screen and (max-width: 1199px) {
+    .sidebar__element:last-of-type {
+        margin-top: 25rem;
+    }
+}
+
 @media screen and (max-width: 767px) {
     .sidebar__container {
         width: 100vw;
     }
     .sidebar__nav-block {
-        margin: 99px 10px 0;
+        margin: 20% 10px 0;
     }
     .sidebar__element {
         margin: 0 0 24px;
     }
     .sidebar__element:last-of-type {
-        margin-bottom: 0;
-        margin-top: 420px;
+        margin-top: 29rem;
     }
 }

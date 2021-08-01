@@ -244,11 +244,13 @@ function App() {
     }
 
     const handleCardClick = (card) => {
+        document.body.style.overflow = "hidden";
         setSelectedCard(card);
         document.addEventListener('keydown', handleEscClose);
     }
 
     const closeAllPopups = () => {
+        document.body.style.overflow = "auto";
         setSelectedCard(false);
     }
 
